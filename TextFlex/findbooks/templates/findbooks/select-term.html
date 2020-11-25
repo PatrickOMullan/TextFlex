@@ -1,0 +1,9 @@
+{% extends "findbooks/base.html" %}
+{% block content %}
+    <h1>Select Term</h1>
+
+    {% for term in terms %}
+    <h1>{{ term.term }}</h1>
+    <h1>{{ term.title }}</h1>
+    {% endfor %}
+{% endblock content %}
