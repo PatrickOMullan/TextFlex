@@ -1,0 +1,12 @@
+{% extends "findbooks/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <h1>You have successfuly been signed out!</h1>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <a class="ml-2" href="{% url 'sign-in' %}">Sign In</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}
