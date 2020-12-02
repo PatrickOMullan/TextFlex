@@ -1,0 +1,18 @@
+.book-result {
+    padding-top: 5%;
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+.book-result h1{
+    font-weight: bolder;
+    color: rgb(172, 43, 55);
+    font-size: 48px;
+    padding-bottom: 10%;
+}
+
+.book-result-card {
+    width: 100%;
+    background-color: #A9B0B7;
+}

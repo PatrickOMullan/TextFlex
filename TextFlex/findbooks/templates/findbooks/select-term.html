@@ -2,11 +2,27 @@
 {% block content %}
     {% if user.is_authenticated %}
         <h1>Select Term</h1>
-
-        {% for term in terms %}
-        <h1>{{ term.term }}</h1>
-        <h1>{{ term.title }}</h1>
-        {% endfor %}
+        <div style="display: block; margin: auto; width: 100%;">
+            <div class="row" style="margin-top: 10%; width: 100%;">
+                {% for term in terms %}
+                <div class="col-auto mb-3" style="display: block; margin: auto; width: 33%;">
+                    <div class="card text-white mb-3" style="width: 100%; background-color: #A9B0B7; display: block; margin: auto;">
+                        <!--<img class="card-img-top" src="img/A-Term.png"/>-->
+                        <div class="card-body" style="text-align:center;">
+                        <h5 class="card-title">{{ term.title }}</h5>
+                        <p class="card-text">
+                            
+                        </p>
+                        <form action="submit{{ term.title }}" method="POST" style="background-color:rgb(172, 43, 55); color: white; border-style: none; font-weight: bold;">{% csrf_token %}
+                            <input style="visibility: hidden; height: 0px; width: 0px;" type="text" name="{{ term.title }} Form" value="{{ term.term }}">
+                            <input type="submit" name="{{ term.title }} button" value="Select" class="btn btn-primary" style="background-color:rgb(172, 43, 55); color: white; border-style: none; font-weight: bold;">
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+          </div>
     {% else %}
         <h1>SIGN IN PLEASE</h1>
     {% endif %}
