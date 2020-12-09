@@ -64,7 +64,7 @@ def submitA_Term(request):
         'username': username
     }
     
-    t1 = threading.Thread(target=scrape_background, args=(2020, "A", username, request.user.profile.banner_pwd,))
+    t1 = threading.Thread(target=scrape_background, args=(2020, "A", username, request.user.profile.Banner_Password,))
 
     t1.start()
 
@@ -80,7 +80,7 @@ def submitB_Term(request):
         'username': username
     }
 
-    t1 = threading.Thread(target=scrape_background, args=(2020, "B", username, request.user.profile.banner_pwd,))
+    t1 = threading.Thread(target=scrape_background, args=(2020, "B", username, request.user.profile.Banner_Password,))
     
     t1.start()
 
@@ -96,7 +96,7 @@ def submitC_Term(request):
         'username': username
     }
 
-    t1 = threading.Thread(target=scrape_background, args=(2021, "C", username, request.user.profile.banner_pwd,))
+    t1 = threading.Thread(target=scrape_background, args=(2021, "C", username, request.user.profile.Banner_Password,))
     
     t1.start()
 
@@ -112,7 +112,7 @@ def submitD_Term(request):
         'username': username
     }
 
-    t1 = threading.Thread(target=scrape_background, args=(2021, "D", username, request.user.profile.banner_pwd,))
+    t1 = threading.Thread(target=scrape_background, args=(2021, "D", username, request.user.profile.Banner_Password,))
     
     t1.start()
 
@@ -128,7 +128,7 @@ def submitEI_Term(request):
         'username': username
     }
 
-    t1 = threading.Thread(target=scrape_background, args=(2021, "E1", username, request.user.profile.banner_pwd,))
+    t1 = threading.Thread(target=scrape_background, args=(2021, "E1", username, request.user.profile.Banner_Password,))
     
     t1.start()
 
@@ -144,7 +144,7 @@ def submitEII_Term(request):
         'username': username
     }
 
-    t1 = threading.Thread(target=scrape_background, args=(2021, "E2", username, request.user.profile.banner_pwd,))
+    t1 = threading.Thread(target=scrape_background, args=(2021, "E2", username, request.user.profile.Banner_Password,))
     
     t1.start()
 
