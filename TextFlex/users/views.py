@@ -9,7 +9,10 @@ def register(request):
         form = UserRegisterForm(request.POST)
         
         if form.is_valid():
-            form.save()
+            user = form.save()
+            user.refresh_from_db()
+            user.profile.Banner_Password = form.cleaned_data.get('Banner_Password')
+            user.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f"Account created for {username}!")
             return redirect('sign-in')

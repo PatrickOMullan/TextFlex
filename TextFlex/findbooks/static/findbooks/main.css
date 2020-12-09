@@ -33,12 +33,17 @@ div, a, p, h1, h2, h3, h4, h5, h6, h7, Button {
     text-align: center;
 }
 
+.term-title {
+    font-size: 25px;
+}
+
 .term-card Button {
     background-color:rgb(172, 43, 55);
     color: white;
     border-style: none;
     font-weight: bold;
     width: 100%;
+    border-radius: 30px;
 }
 
 .term-card Button:hover {
@@ -109,6 +114,7 @@ div, a, p, h1, h2, h3, h4, h5, h6, h7, Button {
     font-size: 32px;
     padding-left: 5%;
     padding-right: 5%;
+    border-radius: 30px;
 }
 
 .book-navigate-btn:hover {
@@ -127,10 +133,7 @@ div, a, p, h1, h2, h3, h4, h5, h6, h7, Button {
     padding-bottom: 1%;
     display: block;
     margin: auto;
-}
-
-.sign-up-textflex:hover {
-    font-size: 30px;
+    border-radius: 30px;
 }
 
 .sign-in-landing {
@@ -174,6 +177,7 @@ div, a, p, h1, h2, h3, h4, h5, h6, h7, Button {
     color: white;
     font-weight: bold;
     border: none;
+    border-radius: 30px;
 }
 
 .form-btn-textflex:hover {

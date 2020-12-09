@@ -18,21 +18,15 @@ def store_json(courselist, username):
 
     for i in range(len(courselist)):
         if courselist[i].isbn != None:
-            a_course = {'dept': courselist[i].dept, 'number': courselist[i].number, 'section': courselist[i].section, 'term': courselist[i].term, 'year': courselist[i].year, 'title': courselist[i].title, 'isbn': courselist[i].isbn, 'image': courselist[i].image, 'links': courselist[i].links}
+            a_course = {'err': 0, 'dept': courselist[i].dept, 'number': courselist[i].number, 'section': courselist[i].section, 'term': courselist[i].term, 'year': courselist[i].year, 'title': courselist[i].title, 'isbn': courselist[i].isbn, 'image': courselist[i].image, 'links': courselist[i].links}
             courses.append(a_course)
         else:
-            null_course = {'dept': courselist[i].dept, 'number': courselist[i].number, 'section': courselist[i].section, 'term': courselist[i].term, 'year': courselist[i].year, 'title': 'No Textbook', 'isbn': 'No ISBN', 'image': None, 'links': []}
+            null_course = {'err': 0, 'dept': courselist[i].dept, 'number': courselist[i].number, 'section': courselist[i].section, 'term': courselist[i].term, 'year': courselist[i].year, 'title': 'No Textbook', 'isbn': 'No ISBN', 'image': None, 'links': []}
             courses.append(null_course)
             
 
     with open(f'findbooks/web_scraper/json/books_{username}.json', 'w+') as f:
         json.dump(courses, f)
-    
-        f.close()
-
-def post_status(message, filename):
-    with open(f'status/{filename}.txt', 'w') as f:
-        f.write(message)
     
         f.close()
 
@@ -120,10 +114,10 @@ class pullSchedule(object):
             semester = 'Fall'
         elif(term == 'C' or term =='D'):
             semester = 'Spring'
-        elif(term == 'EI' or term == 'E2'):
+        elif(term == 'E1' or term == 'E2'):
             semester = 'Summer'
         else:
-            raise Exception(f"Ivalid Term {term}")
+            raise Exception(f"Invalid Term {term}")
 
         options = self.soup.find_all('option')
         
@@ -132,6 +126,10 @@ class pullSchedule(object):
         for elmt in options:
             if f'{semester} {year}' in elmt.text:
                 form_option = elmt
+        
+        if form_option == None:
+            form = 'TERM NOT YET LISTED'
+            return form
 
         term_id = form_option.get('value')
 
@@ -142,17 +140,20 @@ class pullSchedule(object):
             self.cache = form
         else:
             form = self.cache
-
+        
         return form
 
     def extract_class_info(self, form):
+        if form == 'TERM NOT YET LISTED':
+            return form
+
         blacklist = ['Scheduled Meeting Times']
         courses = []
 
         for course in form.find_all('caption', class_='captiontext'):
             if course.text not in blacklist:
                 content = course.text
-                start = content.find('- ')
+                start = content.find(' - ')
                 courses.append(content[start+1:])
 
         student_schedule = []
@@ -162,22 +163,62 @@ class pullSchedule(object):
         sects = []
 
         for course in courses:
+
             dept = re.compile(r'\s\D\D\s')
             number = re.compile(r'\d\d\d\d')
-            sect = re.compile(r'...\Z')
 
             deptmatches = dept.finditer(course)
-            numbermatches = number.finditer(course)
-            sectmatches = sect.finditer(course)
+            
+            origin_dept_len = len(depts)
 
             for match in deptmatches:
                 depts.append(course[match.start()+1:match.end()-1])
+            
+            post_dept_len = len(depts)
+
+            if origin_dept_len == post_dept_len:
+                dept = re.compile(r'\s\D\D\D\s')
+                deptmatches = dept.finditer(course)
+
+                origin_dept_len = len(depts)
+
+                for match in deptmatches:
+                    depts.append(course[match.start()+1:match.end()-1])
+
+                post_dept_len = len(depts)
+
+                if origin_dept_len == post_dept_len:
+                    dept = re.compile(r'\s\D\D\D\D\s')
+                    deptmatches = dept.finditer(course)
+
+                    origin_dept_len = len(depts)
+
+                    for match in deptmatches:
+                        depts.append(course[match.start()+1:match.end()-1])
+                    
+                    post_dept_len = len(depts)
+
+                    if origin_dept_len == post_dept_len:
+                        raise Exception("FAILURE")
+
+            numbermatches = number.finditer(course)
+
+            sec_terms = ['A', 'B', 'C', 'D', 'E']
+            
+            sect_str = ''
 
             for match in numbermatches:
                 nums.append(course[match.start():match.end()])
+                sect_str = course[match.end():]
 
-            for match in sectmatches:
-                sects.append(course[match.start():match.end()])
+            x = None
+
+            for term in sec_terms:
+                x = re.search(term, sect_str[sect_str.find('- ')+1:])
+                if x:
+                    break
+            
+            sects.append(sect_str[x.start()+2:])
 
         for i in range(len(courses)):
             if sects[i][0] == 'A' or sects[i][0] == 'B' or sects[i][0] == 'C' or sects[i][0] == 'D' or sects[i][0] == 'E':
@@ -244,7 +285,8 @@ class pullBooks(object):
                     term_code = int(term_item.get('data-optionvalue'))
             
             if term_code == None:
-                raise Exception("Error obtaining term code")
+                search_results = 'TERM NOT YET LISTED'
+                break
 
             opener = AppURLopener()
             #DEPT URL
@@ -324,17 +366,29 @@ class pullBooks(object):
 
     def update_classes(self, pages):
 
+        if(pages == 'TERM NOT YET LISTED'):
+            return(pages)
+
+
         for i in range(len(pages)):
             title = None
             ISBN = None
             Image = None
 
-            if not pages[i].find('div', class_='noMaterial_assigned'):
+            try:
                 title = pages[i].find('a', class_='clr121').get('title')
+            except:
+                title = None
 
-                ISBN = pages[i].find('span', class_='compass-logo-tblist').get('data-isbn')
+            try:
+                ISBN = pages[i].find('li', class_='book_c2_180616').text
+            except:
+                ISBN = None
 
+            try:    
                 Image = pages[i].find('img', class_='noImageDisReq').get('src')
+            except:
+                Image = None
 
             self.courselist[i].book_info(title, ISBN, Image)
     
@@ -359,31 +413,30 @@ def run_scrape(year, term, username, password):
     banner = pullSchedule('https://bannerweb.wpi.edu', username, password)
     classes = banner.extract_class_info(banner.get_classes(term, year))
 
-    #STATUS FINDING BOOKS
-    #post_status(f'{username} BOOKFIND', f'findingbooks_{username}.txt')
+    if classes == 'TERM NOT YET LISTED':
+        err_courses = {'err': 1}
+
+        with open(f'findbooks/web_scraper/json/books_{username}.json', 'w+') as f:
+            json.dump(err_courses, f)
     
+            f.close()
+    else:
+        bn_finder = pullBooks('https://wpi.bncollege.com', classes)
+        err = bn_finder.update_classes(bn_finder.get_books())
 
-    bn_finder = pullBooks('https://wpi.bncollege.com', classes)
-    bn_finder.update_classes(bn_finder.get_books())
+        if err == 'TERM NOT YET LISTED':
+            err_courses = {'err': 1}
 
-    #STATUS FINDING VENDORS
-    #post_status(f'{username} VENDORFIND', f'findingvendors_{username}.txt')
+            with open(f'findbooks/web_scraper/json/books_{username}.json', 'w+') as f:
+                json.dump(err_courses, f)
+        
+                f.close()
+        else:
+            bn_finder.find_online_vendors()
 
-    bn_finder.find_online_vendors()
+            print("\n\nCOURSE-LIST\n\n")
 
-    print("\n\nCOURSE-LIST\n\n")
+            for course in classes:
+                print(course.to_str())
 
-    for course in classes:
-        print(course.to_str())
-
-    #STATUS SAVING RESULTS
-    #post_status(f'{username} SAVINGRESULTS', f'savingresults_{username}')
-
-    store_json(classes, 'pjomullan')
-'''
-def main():
-    run_scrape(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])
-
-if __name__=="__main__": 
-    main()
-'''
+            store_json(classes, username)

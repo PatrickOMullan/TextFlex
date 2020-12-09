@@ -128,7 +128,7 @@ def submitEI_Term(request):
         'username': username
     }
 
-    t1 = threading.Thread(target=scrape_background, args=(2021, "E", username, request.user.profile.banner_pwd,))
+    t1 = threading.Thread(target=scrape_background, args=(2021, "E1", username, request.user.profile.banner_pwd,))
     
     t1.start()
 
@@ -144,7 +144,7 @@ def submitEII_Term(request):
         'username': username
     }
 
-    t1 = threading.Thread(target=scrape_background, args=(2021, "E", username, request.user.profile.banner_pwd,))
+    t1 = threading.Thread(target=scrape_background, args=(2021, "E2", username, request.user.profile.banner_pwd,))
     
     t1.start()
 
@@ -160,12 +160,13 @@ def results_page(request):
     with open(f'findbooks/web_scraper/json/books_{username}.json') as f:
         courses = json.load(f)
 
-        print (courses)
-
         list_to_pass = []
 
-        for course in courses:
-            list_to_pass.append(json.dumps(course))
+        if len(courses) > 1:
+            for course in courses:
+                list_to_pass.append(json.dumps(course))
+        else:
+            list_to_pass = 1
 
         context = {
             'books': list_to_pass,
