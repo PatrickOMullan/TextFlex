@@ -5,6 +5,7 @@ from .models import Profile
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
+    Banner_Password = forms.CharField(help_text='Required. Must be exactly your bannerweb password', widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -12,6 +13,7 @@ class UserRegisterForm(UserCreationForm):
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
+    Banner_Password = forms.CharField(help_text='Required. Must be exactly your bannerweb password', widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -21,3 +23,13 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image']
+
+'''
+def register(request):
+    if request.metho == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user=form.save()
+            user.refresh_from_db()
+            user
+'''

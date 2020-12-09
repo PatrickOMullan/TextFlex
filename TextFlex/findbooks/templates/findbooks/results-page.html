@@ -2,7 +2,7 @@
 {% block content %}
     {% if user.is_authenticated %}
     <script type="text/javascript">
-
+        //NEED A FUNCTION TO COUNT LINK LIST SIZE AND HIDE VISIBILITY OF LOWER OPTIONS THEN EACH GROUPING NEEDS A FUNCTION LOOP THAT ONLY FILLS IN THE NEEDED ONE
         class courseInfo {
             constructor(dept, number, section, term, year, title, isbn, image, links) {
                 this.dept = dept.toString();
@@ -12,7 +12,10 @@
                 this.year = year.toString();
                 this.title = title.toString();
                 this.isbn = isbn.toString();
-                this.links = links.toString();
+                this.links = []
+                for(var i = 0; i < links.length; i++) {
+                    this.links[i] = links[i]
+                }
                 if(image != null) {
                     this.image = image.toString();
                 }
@@ -52,14 +55,16 @@
                 img.src = course_list[index].image;
                 coursename.innerHTML = course_list[index].dept + " " + course_list[index].number + " " + course_list[index].section;
                 title.innerHTML = course_list[index].title;
-                isbn.innerHTML = course_list[index].isbn;
+                isbn.innerHTML = "ISBN-13: " + course_list[index].isbn;
                 //seller1.innerHTML = course_list[index].links[0];
                 //seller2.innerHTML = course_list[index].links[1];
                 //seller3.innerHTML = course_list[index].links[2];
                 //price1.innerHTML = course_list[index].links[0];
                 //price2.innerHTML = course_list[index].links[1];
                 //price3.innerHTML = course_list[index].links[2];
-                link1.href = course_list[index].links;
+                link1.href = course_list[index].links[0];
+                link2.href = course_list[index].links[1];
+                link3.href = course_list[index].links[2];
             }
             else if(direction == 0) { //backward
                 if(index == 0) {
@@ -78,7 +83,9 @@
                 //price1.innerHTML = course_list[index].links[0];
                 //price2.innerHTML = course_list[index].links[1];
                 //price3.innerHTML = course_list[index].links[2];
-                link1.href = course_list[index].links;
+                link1.href = course_list[index].links[0];
+                link2.href = course_list[index].links[1];
+                link3.href = course_list[index].links[2];
             }
         }
         
@@ -105,8 +112,10 @@
             //seller3.innerHTML = course_list[0].links[2];
             //price1.innerHTML = course_list[0].links[0];
             //price2.innerHTML = course_list[0].links[1];
-            //price3.innerHTML = course_list[0].links[2];
-            link1.href = course_list[0].links;
+            //price3.innerHTML = course_list[[0].links[2];
+            link1.href = course_list[0].links[0];
+            link2.href = course_list[0].links[1];
+            link3.href = course_list[0].links[2];
         }
 
         function loadCourses(books) {
@@ -121,16 +130,16 @@
     </script>
 
         <body onload="loadCourses({{ books }})">
-        <div class="book-result" style="display: block; padding-top: 5%; margin: auto; text-align: center; width: 50%;">
-            <h1 style="font-weight: bolder; color: rgb(172, 43, 55); font-size: 48px; padding-bottom: 5%;">TEXTBOOKS</h1>
+        <h1 class="page-prompt">Textbooks</h1>
+        <div class="book-result">
             <div class="col-auto mb-3">
-              <div class="card text-white mb-3 book-result-card" style="width: 100%; background-color: #A9B0B7;">
-                <h4 id="CourseName" class="card-title" style="font-weight: bolder; font-size: 40px; color: rgb(172, 43, 55); padding-top: 5%"></h4>
-                <img id="bookImg" class="card-img-top" src="#" style="width: 30%; display: block; margin-left:auto; margin-right: auto; margin-top: 5%;"/>
-                <h5 id="BookTitle" style="font-weight: bolder; font-size: 20px; color: rgb(172, 43, 55); padding-top: 5%"></h5>
-                <h5 id="ISBN" style="font-weight: bolder; font-size: 12px; color: rgb(172, 43, 55);"></h5>
-                <div class="card-body" style="text-align:center;">
-                  <table class="table" style="width: 100%;">
+              <div class="card text-white mb-3 book-result-card">
+                <h4 id="CourseName" class="card-title"></h4>
+                <img id="bookImg" class="card-img-top" src="#"/>
+                <h5 id="BookTitle"></h5>
+                <h5 id="ISBN" style="font-size: 12px;"></h5>
+                <div class="card-body">
+                  <table class="table">
                       <thead>
                         <tr>
                           <th scope="col">Seller</th>
@@ -163,8 +172,8 @@
                       </tbody>
                     </table>
                   <div>
-                      <button class="btn btn-primary" style="background-color:rgb(172, 43, 55); color: white; border-style: none; font-weight: bold; float: left;" onclick="updateCourse(0)">Previous</button>
-                      <button class="btn btn-primary" style="background-color:rgb(172, 43, 55); color: white; border-style: none; font-weight: bold; float: right;" onclick="updateCourse(1)">Next</button>
+                      <button class="btn btn-primary book-navigate-btn" style="float: left;" onclick="updateCourse(0)"> < </button>
+                      <button class="btn btn-primary book-navigate-btn" style="float: right;" onclick="updateCourse(1)"> > </button>
                   </div>
                   </div>
               </div>

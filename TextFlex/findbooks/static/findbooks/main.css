@@ -1,18 +1,183 @@
-.book-result {
-    padding-top: 5%;
+@font-face {
+    font-family: Myriad;
+    src: url("Myriad Pro Semibold.ttf")
+}
+
+div, a, p, h1, h2, h3, h4, h5, h6, h7, Button {
+    font-family: Myriad;
+}
+
+.textflex-navbar {
+    background-color: rgb(172, 43, 55);
+}
+
+.textflex-brand {
+    font-size: 48px;
+}
+
+.textflex-nav-page {
+    font-size: 28px;
+}
+
+.card-col {
+    display: block;
+    margin: auto;
+    width: 33%;
+}
+
+.term-card {
+    width: 100%;
+    background-color: #A9B0B7;
     display: block;
     margin: auto;
     text-align: center;
 }
 
-.book-result h1{
+.term-card Button {
+    background-color:rgb(172, 43, 55);
+    color: white;
+    border-style: none;
+    font-weight: bold;
+    width: 100%;
+}
+
+.term-card Button:hover {
+    background-color:#64686d;
+}
+
+.page-prompt {
     font-weight: bolder;
     color: rgb(172, 43, 55);
-    font-size: 48px;
-    padding-bottom: 10%;
+    font-size: 64px;
+    display: block;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10%;
+    text-align: center;
+    width: 50%;
+}
+
+.wpi-terms {
+    display: block;
+    margin: auto;
+    width: 100%;
+}
+
+.book-result {
+    display: block;
+    margin: auto;
+    text-align: center;
+    width: 65%;
 }
 
 .book-result-card {
     width: 100%;
     background-color: #A9B0B7;
+}
+
+.book-result-card h4 {
+    font-weight: bolder;
+    font-size: 48px;
+    color: rgb(172, 43, 55);
+    padding-top: 5%;
+}
+
+.book-result-card img {
+    width: 30%;
+    display: block;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 5%;
+}
+
+.book-result-card h5 {
+    font-weight: bolder;
+    font-size: 20px;
+    color: rgb(172, 43, 55);
+}
+
+.book-result-card table {
+    width: 100%;
+}
+
+.book-navigate-btn {
+    background-color:rgb(172, 43, 55);
+    color: white;
+    border-style: none;
+    font-weight: bold;
+    font-size: 32px;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.book-navigate-btn:hover {
+    background-color:#64686d;
+}
+
+.sign-up-textflex {
+    background-color:rgb(172, 43, 55);
+    color: white;
+    border-style: none;
+    font-weight: bold;
+    font-size: 24px;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    display: block;
+    margin: auto;
+}
+
+.sign-up-textflex:hover {
+    font-size: 30px;
+}
+
+.sign-in-landing {
+    display: block;
+    margin: auto;
+    text-align: center;
+    padding-top: 5%;
+}
+
+.sign-in-landing:hover {
+    color: rgb(172, 43, 55);
+    text-decoration: none;
+}
+
+.access-forms {
+    margin-top: 5%;
+}
+
+.access-forms fieldset {
+    border: none;
+}
+
+.access-forms legend{
+    color: rgb(172, 43, 55);
+    font-family: Myriad;
+    text-align: center;
+    font-size: 32px;
+}
+
+.form-sign-in-up {
+    color: black;
+}
+
+.form-sign-in-up:hover {
+    color: rgb(172, 43, 55);
+    text-decoration: none;
+}
+
+.form-btn-textflex {
+    background-color:rgb(172, 43, 55);
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+
+.form-btn-textflex:hover {
+    background-color:rgb(172, 43, 55);
+    color: white;
+    font-weight: bold;
 }

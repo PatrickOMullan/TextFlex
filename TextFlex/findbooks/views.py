@@ -1,13 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import json
 import os
 import threading
+from pathlib import Path
+from .web_scraper.banner_scrape import run_scrape
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 terms = [
-
     {
         'term': 'A',
         'title': 'A-Term'
@@ -34,120 +36,128 @@ terms = [
     }
 ]
 
+#THREAD TO GET RESULTS
+def scrape_background(year, term, username, password):
+    my_file = Path(f'findbooks/web_scraper/json/books_{username}.json')
+
+    if my_file.is_file():
+        os.remove(f'findbooks/web_scraper/json/books_{username}.json')
+
+    run_scrape(year, term, username, password)
+
+    return 0
+
+
 def home(request):
     context = {
         'terms': terms,
         'title': 'Select Term'
     }
+
     return render(request, 'findbooks/select-term.html', context)
 
+@login_required
 def submitA_Term(request):
     username = request.user.username
     context = {
         'title': 'Loading Results',
-        'username': username,
-        'password': 'Oct16ber!!!',
-        'term': 'A'
+        'username': username
     }
-
-    os.chdir('../web_scraper/')
     
-    os.system(f'python banner_scrape.py 2020 A {username} Oct16ber!!!')
+    t1 = threading.Thread(target=scrape_background, args=(2020, "A", username, request.user.profile.banner_pwd,))
 
-    os.chdir('../TextFlex')
+    t1.start()
 
-    return render(request, 'findbooks/loading-page.html', context)
+    t1.join()
 
+    return redirect(results_page)
+
+@login_required
 def submitB_Term(request):
     username = request.user.username
     context = {
         'title': 'Loading Results',
-        'username': username,
-        'password': 'Oct16ber!!!',
-        'term': 'B'
+        'username': username
     }
 
-    os.chdir('../web_scraper/')
+    t1 = threading.Thread(target=scrape_background, args=(2020, "B", username, request.user.profile.banner_pwd,))
     
-    os.system(f'python banner_scrape.py 2020 B {username} Oct16ber!!!')
+    t1.start()
 
-    os.chdir('../TextFlex')
+    t1.join()
 
-    return render(request, 'findbooks/loading-page.html', context)
+    return redirect(results_page)
 
+@login_required
 def submitC_Term(request):
     username = request.user.username
     context = {
         'title': 'Loading Results',
-        'username': username,
-        'password': 'Oct16ber!!!',
-        'term': 'C'
+        'username': username
     }
 
-    os.chdir('../web_scraper/')
+    t1 = threading.Thread(target=scrape_background, args=(2021, "C", username, request.user.profile.banner_pwd,))
     
-    os.system(f'python banner_scrape.py 2021 C {username} Oct16ber!!!')
+    t1.start()
 
-    os.chdir('../TextFlex')
+    t1.join()
 
-    return render(request, 'findbooks/loading-page.html', context)
+    return redirect(results_page)
 
+@login_required
 def submitD_Term(request):
     username = request.user.username
     context = {
         'title': 'Loading Results',
-        'username': username,
-        'password': 'Oct16ber!!!',
-        'term': 'D'
+        'username': username
     }
 
-    os.chdir('../web_scraper/')
+    t1 = threading.Thread(target=scrape_background, args=(2021, "D", username, request.user.profile.banner_pwd,))
     
-    os.system(f'python banner_scrape.py 2021 D {username} Oct16ber!!!')
+    t1.start()
 
-    os.chdir('../TextFlex')
+    t1.join()
 
-    return render(request, 'findbooks/loading-page.html', context)
+    return redirect(results_page)
 
+@login_required
 def submitEI_Term(request):
     username = request.user.username
     context = {
         'title': 'Loading Results',
-        'username': username,
-        'password': 'Oct16ber!!!',
-        'term': 'E'
+        'username': username
     }
 
-    os.chdir('../web_scraper/')
+    t1 = threading.Thread(target=scrape_background, args=(2021, "E", username, request.user.profile.banner_pwd,))
     
-    os.system(f'python banner_scrape.py 2021 E {username} Oct16ber!!!')
+    t1.start()
 
-    os.chdir('../TextFlex')
+    t1.join()
 
-    return render(request, 'findbooks/loading-page.html', context)
+    return redirect(results_page)
 
+@login_required
 def submitEII_Term(request):
     username = request.user.username
     context = {
         'title': 'Loading Results',
-        'username': username,
-        'password': 'Oct16ber!!!',
-        'term': 'E'
+        'username': username
     }
 
-    os.chdir('../web_scraper/')
+    t1 = threading.Thread(target=scrape_background, args=(2021, "E", username, request.user.profile.banner_pwd,))
     
-    os.system(f'python banner_scrape.py 2021 E {username} Oct16ber!!!')
+    t1.start()
 
-    os.chdir('../TextFlex')
+    t1.join()
 
-    return render(request, 'findbooks/loading-page.html', context)
+    return redirect(results_page)
 
+@login_required
 def results_page(request):
     
     username = request.user.username
 
-    with open(f'../web_scraper/json/books_{username}.json') as f:
+    with open(f'findbooks/web_scraper/json/books_{username}.json') as f:
         courses = json.load(f)
 
         print (courses)
@@ -165,4 +175,4 @@ def results_page(request):
 
         f.close()
 
-        return render(request, 'findbooks/results-page.html', context)
+    return render(request, 'findbooks/results-page.html', context)
