@@ -3,16 +3,20 @@
 This project is written in python using the Django framework. In order to run it you will need the following installed:
 
 -Anaconda
+
 -------------------------------
 -pip
+
 -------------------------------
 -django
 
 python -m pip install Django
+
 -------------------------------
 -crispyforms
 
 pip install django-crispy-forms
+
 -------------------------------
 To start the server run the following command when in the TextFlex folder:
 
