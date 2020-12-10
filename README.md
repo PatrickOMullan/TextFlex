@@ -7,6 +7,7 @@ This project is written in python using the Django framework. In order to run it
 -pip
 
 -django
+python -m pip install Django
 
 -crispyforms
 pip install django-crispy-forms
