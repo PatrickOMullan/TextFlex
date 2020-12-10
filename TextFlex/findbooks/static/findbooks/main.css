@@ -31,6 +31,7 @@ div, a, p, h1, h2, h3, h4, h5, h6, h7, Button {
     display: block;
     margin: auto;
     text-align: center;
+    align-content: center;
 }
 
 .term-title {
@@ -53,7 +54,7 @@ div, a, p, h1, h2, h3, h4, h5, h6, h7, Button {
 .page-prompt {
     font-weight: bolder;
     color: rgb(172, 43, 55);
-    font-size: 64px;
+    font-size: 48px;
     display: block;
     margin-top: 5%;
     margin-left: auto;
