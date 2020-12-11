@@ -33,8 +33,13 @@ The application is written using the Django framework and utilizes basic HTML, C
   <p>The Official Django Intstall Documentation: https://docs.djangoproject.com/en/3.1/topics/install/</p>
 
 <li> <h3>Install Crispy Forms</h3>
-  <p></p>
+  <p>Official Django-Crispy-Forms Install Documentation: https://django-crispy-forms.readthedocs.io/en/latest/install.html</p>
 
+<li> <h3>Install BeautifulSoup</h3>
+  <p>In the command line, enter the following: pip install beautifulsoup4</p>
+
+<li> <h3>Install Google Search API</h3>
+  <p>In the command line, enter the following: pip install google</p>
 </ol>
 
 -Anaconda
