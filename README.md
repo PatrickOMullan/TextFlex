@@ -22,6 +22,21 @@ The application is written using the Django framework and utilizes basic HTML, C
 
 <h2>Directions for Install</h2>
 
+<ol>
+<li> <h3>Install Anaconda</h3>
+  <p>The official Anaconda Install Documentation: https://docs.anaconda.com/anaconda/install/</p>
+
+<li> <h3>Install PIP (if not already installed)</h3>
+  <p>The Official PIP Install Documentation: https://pip.pypa.io/en/stable/installing/</p>
+
+<li> <h3>Install Django (Official Release)</h3>
+  <p>The Official Django Intstall Documentation: https://docs.djangoproject.com/en/3.1/topics/install/</p>
+
+<li> <h3>Install Crispy Forms</h3>
+  <p></p>
+
+</ol>
+
 -Anaconda
 
 -------------------------------
