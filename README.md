@@ -6,7 +6,7 @@
 
 <h2 align="center">How is it built?</h2>
 
-The application is written using the Django framework and utilizes basic HTML, CSS, Javascript, and some convinient bootstrap classes. The back end of the application uses the BeautifulSoup web scraping library as well as Google's google api for searching for book vendors.
+The application is written using the Django framework and utilizes basic HTML, CSS, Javascript, and some convinient bootstrap classes. The back end of the application uses the BeautifulSoup web scraping library as well as Google's google api for searching for book vendors and its auth API for setting up a server email.
 
 <h2 align="center">What do I need to run it?</h2>
 
@@ -18,6 +18,7 @@ The application is written using the Django framework and utilizes basic HTML, C
   <li>CrispyForms
   <li>BeautifulSoup
   <li>google
+  <li>google-auth
 </ul>
 
 <h2>Directions for Install</h2>
@@ -40,24 +41,18 @@ The application is written using the Django framework and utilizes basic HTML, C
 
 <li> <h3>Install Google Search API</h3>
   <p>In the command line, enter the following: pip install google</p>
+
+<li> <h3>Install Google Authentication</h3>
+  <p>In the command line, enter the following: pip install --upgrade google-auth</p>
+  
+<li> <h3>Finally Clone the Repo to your Computer to Download!</h3>
 </ol>
 
--Anaconda
+<p>Note: you may also want to install Pillow in order to migrate database structures (Not needed to run server)</p>
+<p>https://pillow.readthedocs.io/en/stable/installation.html</p>
 
--------------------------------
--pip
+<h2>Starting the Server</h2>
 
--------------------------------
--django
-
-python -m pip install Django
-
--------------------------------
--crispyforms
-
-pip install django-crispy-forms
-
--------------------------------
 To start the server run the following command when in the TextFlex folder:
 
 -python manage.py runserver
