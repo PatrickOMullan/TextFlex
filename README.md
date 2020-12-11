@@ -1,6 +1,26 @@
-# TextFlex
+# TextFlex: Streamlined Textbook Searches for WPI Students
 
-This project is written in python using the Django framework. In order to run it you will need the following installed:
+<h2 align="center"> What does it do?</h2>
+
+<p>TextFlex is a web-application that utilizes python web scraping to collect a student’s schedule from their Bannerweb account  and input that information into the school store to obtain a list of textbooks associated with each class. The application goes a step further by then searching online for vendors who carry the book and returning to the user a list of their textbooks, and where they can buy them. The goal of this is to reduce the tedious nature of obtaining quarterly textbooks and to make the process of identifying and obtaining vendors streamlined at the press of a button.</p>
+
+<h2 align="center">How is it built?</h2>
+
+The application is written using the Django framework and utilizes basic HTML, CSS, Javascript, and some convinient bootstrap classes. The back end of the application uses the BeautifulSoup web scraping library as well as Google's google api for searching for book vendors.
+
+<h2 align="center">What do I need to run it?</h2>
+
+<p>Here is a list of all the software and python packages you will need in order to download and run the program:</p>
+<ul>
+  <li>Anaconda
+  <li>PIP
+  <li>Django
+  <li>CrispyForms
+  <li>BeautifulSoup
+  <li>google
+</ul>
+
+<h2>Directions for Install</h2>
 
 -Anaconda
 
