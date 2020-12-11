@@ -1,5 +1,4 @@
 # TextFlex: Streamlined Textbook Searches for WPI Students
-
 <h2 align="center"> What does it do?</h2>
 
 <p>TextFlex is a web-application that utilizes python web scraping to collect a student’s schedule from their Bannerweb account  and input that information into the school store to obtain a list of textbooks associated with each class. The application goes a step further by then searching online for vendors who carry the book and returning to the user a list of their textbooks, and where they can buy them. The goal of this is to reduce the tedious nature of obtaining quarterly textbooks and to make the process of identifying and obtaining vendors streamlined at the press of a button.</p>
@@ -63,12 +62,17 @@ The application is written using the Django framework and utilizes basic HTML, C
 
 <h2>You're done!</h2>
 
+<p>If you want to see more about how the application works, check out my demo and blog post!</p>
 
+<ul>
+  <li> <h3>Demo: https://youtu.be/ztGgdFwM4-0</h3>
+  <li> <h3>Blog Post: https://wpihci.wordpress.com/2020/12/11/textflex-streamlined-textbook-searches-for-wpi-students/</h3>
+</ul>
 
-If for whatever reason, you run into issues getting the Django server up and running please contact me! I got this working on a VM so I can probably figure out what went wrong.
+<h2>Other Notes and Credit</h2>
 
-Other Notes: I initially had a recover password system in place, but it required personal email information which I had to remove when I made the repo public, as a result that no longer functions.
+<p>I initially had a recover password system in place, but it required personal email information which I had to remove when I made the repo public, as a result that no longer functions.</p>
 
-I also need to give credit to GitHub user Krconv for their work on a bannerweb scraping system. I was able to modify their system to pulls schedules instead of register for classes. Their framework was very organized and I used their methodology to scrape the barnes and noble store also!
+<p>I also need to give credit to GitHub user Krconv for their work on a Bannerweb scraping system. I was able to modify their system to pull schedules instead of register for classes. Their framework was very organized and I used their methodology to scrape the Barnes and Noble store also!</p>
 
-Link:https://github.com/krconv/PyRegister 
+<p>Link to their program:https://github.com/krconv/PyRegister</p>
