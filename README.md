@@ -53,9 +53,17 @@ The application is written using the Django framework and utilizes basic HTML, C
 
 <h2>Starting the Server</h2>
 
-To start the server run the following command when in the TextFlex folder:
+<p>Once you have everything installed, navigate into the folder containing the file manage.py, in the command line run the following command to start the server:</p>
 
 -python manage.py runserver
+
+<p>This will start the server running on localhost at port 8000. To navigate to the homepage simply type the url "http://localhost:8000/" into your browser.</p>
+
+<p>If for whatever reason, you run into issues getting the Django server up and running please contact me!</p>
+
+<h2>You're done!</h2>
+
+
 
 If for whatever reason, you run into issues getting the Django server up and running please contact me! I got this working on a VM so I can probably figure out what went wrong.
 
